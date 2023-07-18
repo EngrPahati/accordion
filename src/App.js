@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./index.css";
 
 const faqs = [
@@ -34,13 +35,21 @@ function Accordion({data}) {
   );
 }
 
-function AccordionItem({num, title, text}) {
+function AccordionItem({ num, title, text }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="item">
+    <div className={`item ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)} >
       <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
       <p className="text">{title}</p>
-      <p className="icon">-</p>
-      <p className="content-box">{text}</p>
+      <p className="icon"
+        style={{
+          fontSize: '24px',
+          fontWeight: 'bold'        }}  
+        
+      >{ isOpen ? '-' : '+'}</p>
+
+      {isOpen && <div className="content-box">{text}</div>}
     </div>
 
   );
